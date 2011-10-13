@@ -1,14 +1,6 @@
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
 
-
-/**
- * Created by IntelliJ IDEA.
- * User: david
- * Date: 13/10-11
- * Time: 18:37 
- */
-
 class RollsSpec extends FlatSpec with ShouldMatchers {
   "One rolls" should "return five dice results" in {
     new Rolls().size should be (5)
@@ -24,6 +16,7 @@ class RollsSpec extends FlatSpec with ShouldMatchers {
    r.reroll(false, false, true, false, false)
    r.values should be (List(1,2,6,4,5))
   }
+
   it should "re-roll and keep three dices" in {
     val r = new Rolls() with TestRoll
     r.values should be (List(1,2,3,4,5))
@@ -42,7 +35,7 @@ class RollsSpec extends FlatSpec with ShouldMatchers {
 
 trait TestRoll extends Roll {
 
-  // important, must be five
+  // TODO: important, must be five - Why?
   var lastRoll = 5;
 
   override def roll = {

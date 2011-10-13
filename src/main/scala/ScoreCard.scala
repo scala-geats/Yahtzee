@@ -1,9 +1,4 @@
-/**
- * Created by IntelliJ IDEA.
- * User: david
- * Date: 13/10-11
- * Time: 19:49 
- */
+
 class ScoreCard {
 
   def calculate(category: Category, rolls: List[Int]) = {
@@ -17,7 +12,6 @@ trait Category {
 }
 
 case object Ones extends Numbers(1)
-
 case object Twos extends Numbers(2)
 case object Threes extends Numbers(3)
 case object Fours extends Numbers(4)

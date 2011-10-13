@@ -1,12 +1,6 @@
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
 
-/**
- * Created by IntelliJ IDEA.
- * User: david
- * Date: 13/10-11
- * Time: 19:44 
- */
 class ScoreCardSpec extends FlatSpec with ShouldMatchers {
 
   "ScoreCard" should "calculate score for category Ones" in {

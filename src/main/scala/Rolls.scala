@@ -1,12 +1,5 @@
 import util.Random
 
-/**
- * Created by IntelliJ IDEA.
- * User: david
- * Date: 13/10-11
- * Time: 18:41 
- */
-
 class Rolls extends Roll {
   def size = values.size
 
@@ -22,7 +15,6 @@ class Rolls extends Roll {
 }
 
 trait Roll {
-
   def roll = {
     Random.nextInt(6) + 1
   }

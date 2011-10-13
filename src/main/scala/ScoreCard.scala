@@ -1,21 +1,60 @@
+import scala.collection.mutable.Map
 
-class ScoreCard {
+case class ScoreCard(slots: Map[Int, List[Int]] = Map[Int, List[Int]]()) {
 
-  def calculate(category: Category, rolls: List[Int]) = {
-    rolls.filter(category.number == _).sum
+  def slot(i: Int): List[Int] = {
+    slots.getOrElse(i, Nil)
   }
+
+  def +=(roll: Tuple2[Int, List[Int]]) {
+    slots.get(roll._1) match {
+      case None => slots += roll._1 -> roll._2
+      case _ => throw new IllegalArgumentException
+    }
+  }
+
+  def calculate(category: Category): Int = category.calculate(this)
 
 }
 
 trait Category {
-  def number: Int
+  def cardSlot: Int
+  def calculate(scoreCard: ScoreCard): Int = 0
 }
 
-case object Ones extends Numbers(1)
-case object Twos extends Numbers(2)
-case object Threes extends Numbers(3)
-case object Fours extends Numbers(4)
-case object Fives extends Numbers(5)
-case object Sixes extends Numbers(6)
+abstract trait Numbers extends Category {
+  override def calculate(scoreCard: ScoreCard) = {
+    scoreCard.slot(cardSlot).filter(cardSlot == _).sum
+  }
+}
 
-case class Numbers(number: Int) extends Category
+object Ones extends Numbers {
+  val cardSlot = 1
+}
+
+object Twos extends Numbers {
+  val cardSlot = 2
+}
+
+object Threes extends Numbers {
+  val cardSlot = 3
+}
+
+object Fours extends Numbers {
+  val cardSlot = 4
+}
+
+object Fives extends Numbers {
+  val cardSlot = 5
+}
+
+object Sixes extends Numbers {
+  val cardSlot = 6
+}
+
+object Pair extends Category {
+  val cardSlot = 7
+  override def calculate(scoreCard: ScoreCard) = {
+    scoreCard.slot(cardSlot).groupBy(i => i).filter(_._2.size >= 2).foldLeft(0)((sum, l) => l._2.sum)
+  }
+}
